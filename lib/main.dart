@@ -6,6 +6,29 @@ import 'package:http/http.dart' as http;
 import 'package:apipractice/models/wind_model.dart';
 import 'dart:convert';
 
+//Uncomment to use compute function, i.e parsing JSON in background
+/*
+import 'package:flutter/foundation.dart';
+Future<WindModel> getWindApi() async {
+  final response = await http.get(Uri.parse(
+      "https://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=json&tzshift=0"));
+  // var data = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    return compute(computeWindApi, response.body);
+  } else {
+    throw Exception("Something went wrong, can't fetch API at the moment.");
+  }   
+}
+
+WindModel computeWindApi(String responseBody) {
+  // return WindModel.fromJson(responseBody).cas;
+  var data = jsonDecode(responseBody);
+  return WindModel.fromJson(data);
+}
+*/
+
+
+
 Future<WindModel> getWindApi() async {
   final response = await http.get(Uri.parse(
       "https://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=json&tzshift=0"));
