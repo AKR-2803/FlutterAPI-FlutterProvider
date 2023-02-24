@@ -8,6 +8,17 @@
 
 _Deserialization_ is vice versa. Since the key is always a string and the value can be of any type, we keep it as dynamic to be on the safe side. (Map<String, dynamic>).
 
+## Pro TIP : Use ```compute``` method to parse JSON in background 
+
+### WHY?  
+
+If you run the getWhateverApi() function on a slower device, you might notice the app freezes for a brief moment as it parses and converts the JSON. This is **JANK**, and you want to get rid of it.
+
+You can remove the jank by moving the parsing and conversion to a background isolate using the compute() function provided by Flutter. The compute() function runs expensive functions in a background isolate and returns the result. Hence, run the getWhateverApi() function in the background.
+
+Read More [here](https://docs.flutter.dev/cookbook/networking/background-parsing#4-move-this-work-to-a-separate-isolate)
+
+
 ### Common ${\color{red}Errors :}$
 
 #1. Error:  _RangeError (index): Invalid value: Not in inclusive range_ 0..5: 6
