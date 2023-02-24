@@ -1,3 +1,6 @@
+//API : https://newsapi.org/v2/top-headlines?country=us&apiKey=837cbdb477474c5c9bccdd229e0531f4
+//Ensure API key is working, else recreate it from https://newsapi.org
+
 class NewsModel {
   String? status;
   int? totalResults;
