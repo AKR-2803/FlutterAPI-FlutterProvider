@@ -8,9 +8,9 @@
 
 _Deserialization_ is vice versa. Since the key is always a string and the value can be of any type, we keep it as dynamic to be on the safe side. (Map<String, dynamic>).
 
-### Common Errors:
+### Common ${\color{red}Errors :}$
 
-#1. **Error**:  _RangeError (index): Invalid value: Not in inclusive range_ 0..5: 6
+#1. Error:  _RangeError (index): Invalid value: Not in inclusive range_ 0..5: 6
 
 **Solution**: Set itemCount property, this usually occurs when itemCount is "NOT GIVEN".
 
@@ -75,7 +75,7 @@ As the format of JSON is this:
 - We need to provide the respective index of the Maps inside the list.
 - To provide index, we may use what?....Think!..Yes, A ListView.builder, or maybe  GridView.builder or anything that can traverse using an index(Maybe a ${\color{lightgreen}for}$ loop!).
 -	Always ensure to give the itemCount else, you would face the common error #1 mentioned above.
--	Very ${\color{red}IMPORTANT}$: It is important typecast the snapshot into AsyncSnapshot<List<ClassModel>> snapshot.
+-	Very ${\color{red}IMPORTANT}$: It is important typecast the snapshot into AsyncSnapshot<List\<ClassModel\>> snapshot.
 -	Now you can access the data using snapshot.data![index]
 -	Ensure null checks wherever required.
 
@@ -240,7 +240,7 @@ As the format of JSON is this:
 - snapshot.data will have the Map.
 - We don't need to provide index here, can directly use [```snapshot.data.```] (see above code for reference)
 -	Always ensure to give the itemCount else, you would face the common error #1 mentioned above.
--	Very ${\color{red}IMPORTANT}$: It is important typecast the FutureBuilder into FutureBuilder<ClassModel>.
+-	Very ${\color{red}IMPORTANT}$: It is important typecast the FutureBuilder into FutureBuilder\<ClassModel\>.
 -	Now you can access the data using [```snapshot.data.```] 
 -	Ensure null checks wherever required.
 
