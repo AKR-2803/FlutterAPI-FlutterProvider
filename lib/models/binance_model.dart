@@ -1,4 +1,4 @@
-//API : https://api.imgflip.com/get_memes
+//API : https://data.binance.com/api/v3/ticker/24hr
 
 class BinanceModel {
   String? symbol;
