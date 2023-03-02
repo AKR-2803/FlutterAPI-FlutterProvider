@@ -1,16 +1,5 @@
-# fintechdashboardclone
+# Simple Meme App
 
-A new Flutter project.
+Using API + Provider
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Using http package to fetch memes API from [here](https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/),  and implementing basic functionalities like add to cart, remove from cart, cart counter, and downloading the image.
