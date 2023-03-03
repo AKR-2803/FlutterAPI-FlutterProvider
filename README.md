@@ -249,10 +249,10 @@ As the format of JSON is this:
 ] }  
 
 - snapshot.data will have the Map.
-- We don't need to provide index here, can directly use [```snapshot.data.```] (see above code for reference)
+- We don't need to provide index here, can directly use ```snapshot.data.``` (see above code for reference)
 -	Always ensure to give the itemCount else, you would face the common error #1 mentioned above.
 -	Very ${\color{red}IMPORTANT}$: It is important typecast the FutureBuilder into FutureBuilder\<ClassModel\>.
--	Now you can access the data using [```snapshot.data.```] 
+-	Now you can access the data using ```snapshot.data.```
 -	Ensure null checks wherever required.
 
 
