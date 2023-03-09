@@ -19,7 +19,7 @@ You can remove the jank by moving the parsing and conversion to a background iso
 Read More [here](https://docs.flutter.dev/cookbook/networking/background-parsing#4-move-this-work-to-a-separate-isolate)
 
 
-### Common ${\color{red}Errors :}$
+### Common Errors :
 
 #1. Error:  _RangeError (index): Invalid value: Not in inclusive range_ 0..5: 6
 
@@ -84,9 +84,9 @@ As the format of JSON is this:
 
 - snapshot.data will have the List.
 - We need to provide the respective index of the Maps inside the list.
-- To provide index, we may use what?....Think!..Yes, A ListView.builder, or maybe  GridView.builder or anything that can traverse using an index(Maybe a ${\color{lightgreen}for}$ loop!).
+- To provide index, we may use what?....Think!..Yes, A ListView.builder, or maybe  GridView.builder or anything that can traverse using an index(Maybe a for loop!).
 -	Always ensure to give the itemCount else, you would face the common error #1 mentioned above.
--	Very ${\color{red}IMPORTANT}$: It is important typecast the snapshot into AsyncSnapshot<List\<ClassModel\>> snapshot.
+-	Very *IMPORTANT* : It is important typecast the snapshot into AsyncSnapshot<List\<ClassModel\>> snapshot.
 -	Now you can access the data using snapshot.data![index]
 -	Ensure null checks wherever required.
 
@@ -251,7 +251,7 @@ As the format of JSON is this:
 - snapshot.data will have the Map.
 - We don't need to provide index here, can directly use ```snapshot.data.``` (see above code for reference)
 -	Always ensure to give the itemCount else, you would face the common error #1 mentioned above.
--	Very ${\color{red}IMPORTANT}$: It is important typecast the FutureBuilder into FutureBuilder\<ClassModel\>.
+-	Very *IMPORTANT* : It is important typecast the FutureBuilder into FutureBuilder\<ClassModel\>.
 -	Now you can access the data using ```snapshot.data.```
 -	Ensure null checks wherever required.
 
