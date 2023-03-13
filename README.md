@@ -57,7 +57,7 @@ Create a file in lib/models/ which will have the class Model, ClassModel.fromJso
 Define the function like this: 
 (Tip: You may define the function in a separate file handling the API services.) 
 
-```
+```dart
 Future<List<UserModel>> getUserApi() async {
   List<UserModel> userList = [];
   final response =
@@ -92,7 +92,7 @@ As the format of JSON is this:
 
 #Main Class
 
-```
+```dart
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -142,7 +142,7 @@ class _MyAppState extends State<MyApp> {
 #API: https://archive.org/metadata/TheAdventuresOfTomSawyer_201303 
 
 Example: 
-```
+```dart
   {
     "files": [
       	   {
@@ -174,7 +174,7 @@ Example:
 
 #Function: 
 
-```
+```dart
 Future<FilesModel> getFilesApi() async {
   final response = await http.get(Uri.parse(
       "https://archive.org/metadata/TheAdventuresOfTomSawyer_201303"));
@@ -190,7 +190,7 @@ Future<FilesModel> getFilesApi() async {
 
 #Main class
 
-```
+```dart
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
