@@ -1,6 +1,6 @@
 # API Practice
 
-## Complex JSON formats in flutter, and how to pass them? ([code here](https://github.com/AKR-2803/FlutterAPI/tree/main/lib))
+## Complex JSON formats in flutter, and how to parse them? ([code here](https://github.com/AKR-2803/FlutterAPI/tree/main/lib))
 
 #### All the APIs (Free and no Auth Needed) :  [here](https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/)
 
