@@ -1,187 +1,192 @@
-//Type : { [ {}, {}, {} ] }
-//Wind API
-
+//Provider Examples
+// import 'package:apipractice/dark_theme_screen.dart';
+// import 'package:apipractice/login_screen.dart';
+// import 'package:apipractice/providerexamples/favourite_example.dart';
+// import 'package:apipractice/providerexamples/notify_listeners_screen.dart';
+// import 'package:apipractice/providerexamples/opacity_example.dart';
+import 'package:apipractice/provider/auth_provider.dart';
+import 'package:apipractice/provider/cart_provider.dart';
+import 'package:apipractice/provider/favourite_provider.dart';
+import 'package:apipractice/provider/opacity_provider.dart';
+import 'package:apipractice/provider/theme_changer_provider.dart';
+import 'package:apipractice/providerexamples/cart_example.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:apipractice/models/wind_model.dart';
-import 'dart:convert';
-
-Future<WindModel> getWindApi() async {
-  final response = await http.get(Uri.parse(
-      "https://www.7timer.info/bin/astro.php?lon=113.2&lat=23.1&ac=0&unit=metric&output=json&tzshift=0"));
-  var data = jsonDecode(response.body);
-
-  if (response.statusCode == 200) {
-    return WindModel.fromJson(data);
-  } else {
-    throw Exception("Something went wrong, can't fetch API at the moment.");
-  }
-}
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MaterialApp(home: MyApp()));
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => OpacityProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FavouriteProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ThemeChangerProvider(),
+        ),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        //you can add multiple providers here
+      ],
+      // child: MaterialApp(home: OpacityExample()),
+      // child: MaterialApp(home: FavouriteExample()),
+      // child: Builder(
+      //   builder: (BuildContext context) {
+      //     final themeChanger = Provider.of<ThemeChangerProvider>(context);
+      //     return MaterialApp(
+      //         title: 'Demo Provider Theme',
+      //         themeMode: themeChanger.getThemeMode,
+      //         theme: ThemeData(
+      //             primarySwatch: Colors.lightGreen,
+      //             brightness: Brightness.light,
+      //             iconTheme: IconThemeData(color: Colors.lightGreen)),
+      //         darkTheme: ThemeData(
+      //             brightness: Brightness.dark,
+      //             primarySwatch: Colors.red,
+      //             iconTheme: IconThemeData(color: Colors.red)),
+      //         highContrastDarkTheme: ThemeData(
+      //             brightness: Brightness.dark,
+      //             primarySwatch: Colors.yellow,
+      //             iconTheme: IconThemeData(color: Colors.yellow)),
+      //         home: DarkThemeScreen());
+      //   },
+      // ),
+
+      //Login Screen Authentication POST API
+      //child: MaterialApp(home: LoginScreen()),
+
+      //Provider Cart Example
+      child: MaterialApp(home: CartExample()),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-  late Future<WindModel> _futureWind;
 
-  @override
-  void initState() {
-    super.initState();
-    _futureWind = getWindApi();
-  }
+//Provider Example : Counter
+/*
+import 'package:apipractice/counter_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => CounterProvider(),
+      child: const MaterialApp(home: CounterExample()),
+    );
+  }
+}
+
+class CounterExample extends StatefulWidget {
+  const CounterExample({Key? key}) : super(key: key);
+
+  @override
+  State<CounterExample> createState() => _CounterExampleState();
+}
+
+class _CounterExampleState extends State<CounterExample> {
+  @override
+  Widget build(BuildContext context) {
+    //ignore: avoid_print
+    print(
+        ".......................Build Method called, whole UI rebuilding......");
+    final countProvider = Provider.of<CounterProvider>(context, listen: false);
     return Scaffold(
-      body: FutureBuilder<WindModel>(
-        future: _futureWind,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Product Name : ${snapshot.data!.product}"),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    for (int i = 0; i < snapshot.data!.dataseries!.length; i++)
-                      Column(
-                        children: [
-                          Text(
-                              "DataSeries  #$i  direction : ${snapshot.data!.dataseries![i].wind10m!.direction}"),
-                          const SizedBox(
-                            height: 2,
-                          ),
-                          Text(
-                              "DataSeries #$i speed: ${snapshot.data!.dataseries![i].wind10m!.speed}"),
-                        ],
-                      ),
-                  ],
-                ),
-              ),
+      appBar: AppBar(title: const Text("Provider Counter Example")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Center(
+            child: Text(
+              "You have pressed the button these many times :",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Consumer<CounterProvider>(builder: ((context, value, child) {
+            return Text(
+              countProvider.givePizzaValue.toString(),
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
             );
-          } else if (snapshot.hasError) {
-            return Center(
-                child: Text("Following Error occured : ${snapshot.error}"));
-          } else {
-            return const Center(
-                child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 12, 90, 82)));
-          }
+          })),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          countProvider.increment();
         },
+        child: const Icon(Icons.add),
       ),
     );
   }
 }
+*/
 
-
-//Type : [ {}, {}, {} ] 
-//Products API (Handle Null Values!)
-//https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline
+//ThemeChange with Provider
 /*
+import 'package:apipractice/dark_theme_screen.dart';
+import 'package:apipractice/provider/theme_changer_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:apipractice/models/ecommerce_model.dart';
-import 'dart:convert';
-
-Future<List<EcommerceModel>> getEcommerceApi() async {
-  List<EcommerceModel> ecommerceList = [];
-  final response = await http.get(
-      Uri.parse("https://webhook.site/401d8ed4-6091-48a9-848f-1d85b87e9bd7"));
-  var data = jsonDecode(response.body);
-  if (response.statusCode == 200) {
-    for (Map<String, dynamic> item in data) {
-      ecommerceList.add(EcommerceModel.fromJson(item));
-      return ecommerceList;
-    }
-  }
-  return ecommerceList;
-
-  // return throw Exception("Something went wrong, couldn't fetch data.");
-}
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MaterialApp(home: MyApp()));
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late Future<List<EcommerceModel>> displayList;
-
-  @override
-  void initState() {
-    super.initState();
-    displayList = getEcommerceApi();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
-          future: displayList,
-          builder: (context, AsyncSnapshot<List<EcommerceModel>> snapshot) {
-            if (snapshot.hasData) {
-              return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text("${snapshot.data!.length}"),
-                          Image.network("${snapshot.data![index].imageLink}"),
-                          Text("${snapshot.data![index].name}",
-                              style: const TextStyle(fontSize: 20)),
-                          Text("Price : \$${snapshot.data![index].price}",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15)),
-                          TextButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              primary: Colors.black,
-                              minimumSize: const Size(50, 20),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 255, 69, 131),
-                            ),
-                            child: const Text(
-                              "Explore Prodcut",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  });
-            } else if (snapshot.hasError) {
-              return Center(child: Text('${snapshot.error}'));
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(color: Colors.amberAccent),
-              );
-            }
-          }),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ThemeChangerProvider()),
+        ],
+        child: Builder(
+          builder: (BuildContext context) {
+            final themeChanger = Provider.of<ThemeChangerProvider>(context);
+            return MaterialApp(
+                themeMode: themeChanger.getThemeMode,
+                theme: ThemeData(
+                  primarySwatch: Colors.green,
+                  brightness: Brightness.light,
+                ),
+                darkTheme: ThemeData(
+                  primarySwatch: Colors.red,
+                  brightness: Brightness.dark,
+                ),
+                home: DarkThemeScreen());
+
+//              theme: ThemeData(
+//                   primarySwatch: Colors.lightGreen,
+//                   brightness: Brightness.light,
+//                   iconTheme: IconThemeData(color: Colors.lightGreen)),
+//               darkTheme: ThemeData(
+//                   brightness: Brightness.dark,
+//                   primarySwatch: Colors.red,
+//                   iconTheme: IconThemeData(color: Colors.red)),
+          },
+        ));
   }
 }
-
 */
 
